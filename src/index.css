@@ -42,6 +42,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    scroll-behavior: smooth;
   }
 }
 
@@ -51,4 +52,14 @@
 
 .hero-gradient {
   background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,1) 100%);
+}
+
+/* Smooth scrolling for carousel */
+.embla__viewport {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.embla__slide {
+  transition: transform 0.3s ease-in-out;
 }
