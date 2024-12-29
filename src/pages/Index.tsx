@@ -10,28 +10,28 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const FEATURES = [
   {
-    title: "ERC-20 Token Creation",
-    description: "For each AI agent, 100 million tokens are minted.",
+    title: "BNB Chain Agent",
+    description: "An AI agent that operates on the Binance Smart Chain.",
     image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0",
-    creator: "0xauyt6bercm"
+    creator: "CZ.eth"
   },
   {
-    title: "Dedicated DAO",
-    description: "Each agent has its own DAO, accepting either its ERC-20 token or the platform's native token.",
+    title: "Healthcare Agent",
+    description: "An AI agent that provides medical diagnosis and treatment.",
     image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485",
-    creator: "0xauyt6bercm"
+    creator: "Doctor.eth"
   },
   {
-    title: "Agent Registry",
-    description: "Metadata about each AI agent is stored on-chain in an upgradeable contract.",
+    title: "Blockchain Explorer",
+    description: "An AI agent that monitors and analyzes blockchain transactions.",
     image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa",
-    creator: "0xauyt6bercm"
+    creator: "Satoshi.eth"
   },
   {
-    title: "DAO Governance",
-    description: "The DAO can update agent instructions and implement changes.",
+    title: "Stock Market Agent",
+    description: "An AI agent that predicts stock market trends and trades.",
     image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7",
-    creator: "0xauyt6bercm"
+    creator: "Harshath.eth"
   }
 ];
 
@@ -41,22 +41,22 @@ const Index = () => {
       <Header />
       
       {/* Hero Section with 60/40 Split */}
-      <section className="h-screen relative flex">
+      <section className="h-screen flex py-20 px-8">
         {/* Left Side - 60% */}
-        <div className="w-[60%] h-full flex flex-col items-center justify-center px-8">
+        <div className="w-[60%] h-full flex flex-col  justify-center items-center">
           <div className="space-y-6 text-center">
             <h1 className="text-7xl font-bold">
-              <span className="block mb-4">On-Chain</span>
+              <span className="block mb-4">opBNB</span>
               <span className="text-primary block">AI Agent Platform</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl">
-              Create, govern, and trade AI agents with dedicated DAOs and ERC-20 tokens.
+              Create, use, govern, and trade AI agents with dedicated DAOs
             </p>
           </div>
         </div>
 
         {/* Right Side - 40% with Scrollable Cards */}
-        <div className="w-[40%] h-full">
+        <div className="w-[40%] h-full ">
           <Carousel
             opts={{
               align: "start",
