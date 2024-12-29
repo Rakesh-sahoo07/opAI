@@ -92,7 +92,7 @@ const Index = () => {
             <Carousel
               opts={{
                 align: "start",
-                vertical: true,
+                axis: "y"
               }}
               className="w-full max-w-xs"
               orientation="vertical"
