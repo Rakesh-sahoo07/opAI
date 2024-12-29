@@ -2,6 +2,14 @@ import { Header } from "@/components/Header";
 import { NFTCard } from "@/components/NFTCard";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
 
 const FEATURED_NFTS = [
   {
@@ -30,64 +38,84 @@ const FEATURED_NFTS = [
   }
 ];
 
+const FEATURES = [
+  {
+    title: "ERC-20 Token Creation",
+    description: "For each AI agent, 100 million tokens are minted."
+  },
+  {
+    title: "Dedicated DAO",
+    description: "Each agent has its own DAO, accepting either its ERC-20 token or the platform's native token."
+  },
+  {
+    title: "Agent Registry",
+    description: "Metadata about each AI agent is stored on-chain in an upgradeable contract."
+  },
+  {
+    title: "DAO Governance",
+    description: "The DAO can update agent instructions and implement changes."
+  }
+];
+
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
       
-      {/* Hero Section */}
-      <section className="hero-gradient pt-24 pb-20 px-4">
-        <div className="container mx-auto text-center">
-          <h1 className="text-5xl font-bold mb-6">
-            On-Chain <span className="text-primary">AI Agent Platform</span>
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-12">
-            Create, govern, and trade AI agents with dedicated DAOs and ERC-20 tokens.
-          </p>
-        </div>
-      </section>
-
-      {/* Overview Section */}
-      <section className="py-20 px-4 bg-card">
-        <div className="container mx-auto">
-          <h2 className="text-3xl font-bold mb-8">Overview</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div className="space-y-4">
-              <p className="text-lg">
-                This platform allows users to create on-chain AI agents. Each AI agent:
+      {/* Hero Section with 60/40 Split */}
+      <section 
+        className="h-screen relative overflow-hidden"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
+        <div className="absolute inset-0 bg-black/70" /> {/* Dark overlay */}
+        
+        <div className="relative h-full flex">
+          {/* Left Side - 60% */}
+          <div className="w-[60%] h-full flex flex-col items-center justify-center px-8">
+            <div className="space-y-6 text-center">
+              <h1 className="text-7xl font-bold">
+                <span className="block mb-4">On-Chain</span>
+                <span className="text-primary block">AI Agent Platform</span>
+              </h1>
+              <p className="text-xl text-muted-foreground max-w-2xl">
+                Create, govern, and trade AI agents with dedicated DAOs and ERC-20 tokens.
               </p>
-              <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                <li>Is represented by an ERC-20 token</li>
-                <li>Has a dedicated DAO for governance</li>
-                <li>Is registered in a smart contract for proof of existence and metadata storage</li>
-              </ul>
-            </div>
-            <div className="bg-muted rounded-lg p-6">
-              <h3 className="text-xl font-semibold mb-4">Key Features</h3>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-semibold text-primary">ERC-20 Token Creation</h4>
-                  <p className="text-muted-foreground">For each AI agent, 100 million tokens are minted.</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-primary">Dedicated DAO</h4>
-                  <p className="text-muted-foreground">Each agent has its own DAO, accepting either its ERC-20 token or the platform's native token.</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-primary">Agent Registry</h4>
-                  <p className="text-muted-foreground">Metadata about each AI agent is stored on-chain in an upgradeable contract.</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-primary">DAO Governance</h4>
-                  <p className="text-muted-foreground">The DAO can update agent instructions and implement changes.</p>
-                </div>
-              </div>
             </div>
           </div>
-          <div className="text-center">
-            <Button size="lg" className="gap-2">
-              Learn More <ArrowRightIcon />
-            </Button>
+
+          {/* Right Side - 40% with Scrollable Cards */}
+          <div className="w-[40%] h-full flex items-center justify-center px-8">
+            <Carousel
+              opts={{
+                align: "start",
+                vertical: true,
+              }}
+              className="w-full max-w-xs"
+              orientation="vertical"
+            >
+              <CarouselContent className="-mt-1 h-[70vh]">
+                {FEATURES.map((feature, index) => (
+                  <CarouselItem key={index} className="pt-1 md:basis-1/2">
+                    <Card className="bg-card/80 backdrop-blur-sm border-primary/20">
+                      <CardContent className="p-6">
+                        <h3 className="text-xl font-semibold text-primary mb-2">
+                          {feature.title}
+                        </h3>
+                        <p className="text-muted-foreground">
+                          {feature.description}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
           </div>
         </div>
       </section>
