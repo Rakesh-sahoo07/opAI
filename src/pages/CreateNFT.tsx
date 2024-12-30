@@ -11,6 +11,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ArrowLeft } from "lucide-react";
+import { ethers } from "ethers";
+import contractABI from "../abi/AIAgentRegistry.json";
+import { toast } from "sonner";
 
 const modelData = {
   "models": [
@@ -48,6 +51,8 @@ const CreateNFT = () => {
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedId, setSelectedId] = useState("");
   const [availableIds, setAvailableIds] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (selectedModel) {
@@ -57,17 +62,49 @@ const CreateNFT = () => {
     }
   }, [selectedModel]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const CONTRACT_ADDRESS = "0x2e593c7227D5527a075724a01d4dC07Ca7E68a52";
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log({
-      name,
-      instructions: instructions.split('\n'), // Convert to array of strings
-      description,
-      model: selectedModel,
-      id: selectedId
-    });
+    setIsLoading(true);
+    setError("");
+
+    try {
+      // Random ethereum addresses for agent token and DAO
+      const randomAgentToken = ethers.Wallet.createRandom().address;
+      const randomDaoAddress = ethers.Wallet.createRandom().address;
+
+      // Get provider and signer
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+
+      // Create contract instance
+      const contract = new ethers.Contract(
+        CONTRACT_ADDRESS,
+        contractABI.abi,
+        signer
+      );
+      // Call registerAgent function
+      const tx = await contract.registerAgent(
+        name,
+        description,
+        instructions,
+        selectedModel,
+        selectedId,
+        randomAgentToken,
+        randomDaoAddress
+      );
+
+      await tx.wait();
+      navigate(-1); // Return to previous page on success
+    } catch (err) {
+      toast.error(`Failed to create AI agent: ${err.message}`);
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
 
   return (
     <div className="min-h-screen bg-background p-6">
@@ -88,7 +125,7 @@ const CreateNFT = () => {
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Enter NFT name"
+            placeholder="Enter AI agent name"
             className="bg-card"
           />
         </div>
@@ -164,7 +201,7 @@ const CreateNFT = () => {
           type="submit"
           className="w-full"
         >
-          Create NFT
+          Create AI Agent
         </Button>
       </form>
     </div>
